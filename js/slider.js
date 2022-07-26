@@ -7,15 +7,21 @@ const slides = [
 	'./img/05.jpg',
 ]
 
-// Seleziono elemento .slides-wrapper tramite querySelection
+const slidesElements = []
+
+// Creo variabile per segnare posizione all'interno dell'array
+let slidesPosition = 0
+
+// Seleziono elemento .slides-wrapper tramite querySelector
 const slidesWrapper = document.querySelector('.slides-wrapper');
-console.log(slidesWrapper);
+
+
+
 
 // Creo ciclo for per creare le varie slide
 for (i = 0; i < slides.length; i++) {
 
-	// Creo variabile per segnare posizione all'interno dell'array
-	const slidesPosition = slides[i]
+	slideNumb = slides[i]
 
 	// Utilizzo create.elemet per crare un li
 	const liElement = document.createElement('li');
@@ -29,11 +35,44 @@ for (i = 0; i < slides.length; i++) {
 	// utilizzo create.elemt per creare img
 	const imgElement = document.createElement('img');
 	// Associo slidePosition ad src 
-	imgElement.src = slidesPosition
+	imgElement.src = slideNumb
 	// Utilizzo append si liElement per inserire img al suo interno
 	liElement.append(imgElement)
 
 	// Utilizzo append per inserire liElement all'interno di slidesWrapper
 	slidesWrapper.append(liElement)
+	
+	slidesElements.push(liElement)
 }
 
+// Selezione .arrow-prev ed .arrow-next tramite querySelector
+const nextSlide = document.querySelector('.arrow-next')
+const prevSlide = document.querySelector('.arrow-prev')
+
+
+// Creo evento click su nextSlide 
+nextSlide.addEventListener('click', function(){
+
+	const activeSlide = slidesElements[slidesPosition]
+	activeSlide.classList.remove('active')
+
+	const nextSlide = slidesElements[slidesPosition + 1]
+	nextSlide.classList.add('active')
+
+	slidesPosition++
+})
+
+prevSlide.addEventListener('click', function(){
+
+	const activeSlide = slidesElements[slidesPosition]
+	activeSlide.classList.remove('active')
+
+	const nextSlide = slidesElements[slidesPosition - 1]
+	nextSlide.classList.add('active')
+
+	slidesPosition--
+
+})
+
+
+console.log(slidesPosition)
