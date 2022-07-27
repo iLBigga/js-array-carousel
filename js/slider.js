@@ -41,7 +41,7 @@ for (i = 0; i < slides.length; i++) {
 
 	// Utilizzo append per inserire liElement all'interno di slidesWrapper
 	slidesWrapper.append(liElement)
-	
+	// Pusho liElement all'interno di slidesElements
 	slidesElements.push(liElement)
 }
 
@@ -53,26 +53,43 @@ const prevSlide = document.querySelector('.arrow-prev')
 // Creo evento click su nextSlide 
 nextSlide.addEventListener('click', function(){
 
+	const lastIndex = slidesElements.length-1
+
+	// Creo una varibile per associare la poszione all'interno dell'array così da poter irmuovere la casse
 	const activeSlide = slidesElements[slidesPosition]
 	activeSlide.classList.remove('active')
 
-	const nextSlide = slidesElements[slidesPosition + 1]
+	if (slidesPosition < lastIndex){
+		slidesPosition++
+	} else {
+		slidesPosition = 0
+	}
+
+	// Creo una varibile per associare la poszione all'interno dell'array così da poter aggiungere la classe al prossimo elemento
+	const nextSlide = slidesElements[slidesPosition]
 	nextSlide.classList.add('active')
 
-	slidesPosition++
+	// incremento slideposition
+	
 })
 
+// Creo evento click su prevSlide
 prevSlide.addEventListener('click', function(){
 
+	const lastIndex = slidesElements.length-1
+
+	// Creo una varibile per associare la poszione all'interno dell'array così da poter irmuovere la casse
 	const activeSlide = slidesElements[slidesPosition]
 	activeSlide.classList.remove('active')
 
-	const nextSlide = slidesElements[slidesPosition - 1]
+	if (slidesPosition > 0){
+		slidesPosition--
+	} else {
+		slidesPosition = lastIndex
+	}
+
+	// Creo una varibile per associare la poszione all'interno dell'array così da poter aggiungere la classe al prossimo elemento
+	const nextSlide = slidesElements[slidesPosition]
 	nextSlide.classList.add('active')
 
-	slidesPosition--
-
 })
-
-
-console.log(slidesPosition)
